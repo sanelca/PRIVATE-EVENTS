@@ -11,6 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190215103054) do
+ActiveRecord::Schema.define(version: 20190215103919) do
+
+  create_table "events", force: :cascade do |t|
+    t.date     "date"
+    t.string   "location"
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "host_id"
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.integer  "event_id"
+    t.integer  "guest_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "invitations", ["event_id", "guest_id"], name: "index_invitations_on_event_id_and_guest_id"
+  add_index "invitations", ["event_id"], name: "index_invitations_on_event_id"
+  add_index "invitations", ["guest_id"], name: "index_invitations_on_guest_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.string   "remember_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
 end
