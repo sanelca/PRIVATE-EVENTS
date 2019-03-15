@@ -1,0 +1,47 @@
+<div class="pull-right">
+<%= link_to 'Delete account', user_path(current_user), method: 'delete', class: 'btn btn-default' %>
+<%= link_to 'Edit account', edit_user_path(current_user), class: 'btn btn-default' %>
+</div>
+
+<% if creator?(@user) %>
+<h1 style="text-align: center;">Hello, <%= @user.name %>!</h1>
+<% else %>
+<h1 style="text-align: center;"><%= @user.name %>'s Events</h1>
+<% end %>
+
+<div class="row center">
+  <div class="col-md-4">
+    <h2>Your Upcoming Events</h2>
+    <% if @upcoming_events.count == 0 %>
+    <p>You don't have any upcoming events. <%= link_to "Create event", new_event_path %>?</p>
+    <% else %>
+    <p>You have <%= pluralize(@upcoming_events.count, 'event')%>.</p>
+    <%= render @upcoming_events %>
+    <% end %>
+  </div>
+  <div class="col-md-4">
+    <h2>Invitations</h2>
+    <% @invitations.each do |event| %>
+    <h3><%= event.title %></h3>
+    <p>Date:<%= event.date.to_formatted_s(:rfc822) %></p>
+    <p>Location:<%= event.location %></p>
+    <p>Description:<%= event.location %></p>
+    <p>Hosted by : <%= event.host.name %></p>
+      <%= form_for(:decline, url: uninvite_path, method: 'delete') do |f| %>
+      <%= hidden_field_tag :event_id, event.id %>
+      <%= hidden_field_tag :guest_id, current_user.id %>
+      <%= hidden_field_tag :id, params[:id] %>
+      <%= f.submit "Decline", class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="col-md-4">
+    <h2>Past events</h2>
+    <% if @past_events.count == 0 %>
+    <p>You don't have any past events.</p>
+    <% else %>
+    <p>You had <%= pluralize(@past_events.count, 'event')%>.</p>
+    <%= render @past_events %>
+    <% end %>
+  </div>
+</div>

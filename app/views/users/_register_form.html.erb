@@ -1,0 +1,22 @@
+<%= form_for @user, html: {class: "form-horizontal"} do |f| %>
+    <div class="form-group">
+      <%= f.label :name, class: "control-label col-sm-4" %>
+      <%= f.text_field :name, class: "col-sm-8" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email, class: "control-label col-sm-4" %>
+      <%= f.text_field :email, class: "col-sm-8" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password, class: "control-label col-sm-4" %>
+      <%= f.password_field :password, class: "col-sm-8" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password_confirmation, class: "control-label col-sm-4" %>
+      <%= f.password_field :password_confirmation, class: "col-sm-8" %>
+    </div>
+    <div class="center">
+      <%= f.submit "Register", class: 'btn btn-primary' %>
+    </div>
+
+    <% end %>

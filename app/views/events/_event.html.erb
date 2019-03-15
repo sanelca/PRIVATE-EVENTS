@@ -1,0 +1,12 @@
+<% if upcoming_event?(event) %>
+<h3><%= link_to event.title, event_path(event.id) %></h3>
+<% else %>
+<h3><%= event.title %></h3>
+<% end %>
+<p>Date:<%= event.date.to_formatted_s(:rfc822) %></p>
+<p>Location:<%= event.location %></p>
+<% if creator?(event.host) %>
+<p>Hosted by : You</p>
+<% else %>
+<p>Hosted by : <%= event.host.name %></p>
+<% end %>
